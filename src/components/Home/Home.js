@@ -14,8 +14,18 @@ const Home = () => {
 
     const handelAddToCart = (seletedItem) => {
 
-        const newCart = [...cart, seletedItem]
-        setCart(newCart)
+        const exists = cart.find(item => item.id === seletedItem.id)
+
+        if (!exists) {
+            const newCart = [...cart, seletedItem]
+            setCart(newCart)
+
+        }
+        else {
+            alert(seletedItem.name + ' Already exists in cart')
+        }
+
+
     }
 
 
