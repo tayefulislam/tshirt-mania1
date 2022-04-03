@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import useTShirt from '../../hooks/useTShirts';
 import Cart from '../Cart/Cart'
+import TShirt from '../TShirt/TShirt';
 import './Home.css'
 
 const Home = () => {
+
+
+    const [tShirts, setTShirts] = useTShirt()
+
+    const [cart, setCart] = useState([])
+
+
+    const handelAddToCart = (seletedItem) => {
+
+        const newCart = [...cart, seletedItem]
+        setCart(newCart)
+    }
+
+
+    const removeItemFormCart = (seletedItem) => {
+
+        const rest = cart.filter(item => item.id !== seletedItem.id)
+        setCart(rest)
+
+    }
+
+
     return (
         <div>
 
             <div className="home-container">
                 <div className="tshirt-container">
 
+                    {
+                        tShirts.map(tShirt => <TShirt key={tShirt.id}
+                            tShirt={tShirt}
+                            handelAddToCart={handelAddToCart}></TShirt>)
+                    }
+
                 </div>
 
                 <div className="cart-container">
 
-                    <Cart></Cart>
+                    <Cart cart={cart} removeItemFormCart={removeItemFormCart}></Cart>
 
                 </div>
             </div>
